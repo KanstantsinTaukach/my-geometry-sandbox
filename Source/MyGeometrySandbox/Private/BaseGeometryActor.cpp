@@ -2,8 +2,11 @@
 
 
 #include "BaseGeometryActor.h"
+
+// Lesson 2 ((FString)
 #include "Engine/engine.h"
 
+// Lesson 2 ((FString)
 DEFINE_LOG_CATEGORY_STATIC(LogBaseGeometry, All, All)
 
 // Sets default values
@@ -32,6 +35,7 @@ void ABaseGeometryActor::Tick(float DeltaTime)
 
 }
 
+// Lesson 1 (UE_LOG)
 void ABaseGeometryActor::printTypes()
 {
 	UE_LOG(LogTemp, Display, TEXT("Hello UE!"));
@@ -52,6 +56,7 @@ void ABaseGeometryActor::printTypes()
 
 }
 
+// Lesson 2 ((FString)
 void ABaseGeometryActor::printStringTypes()
 {
 
