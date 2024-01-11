@@ -27,9 +27,9 @@ void ABaseGeometryActor::BeginPlay()
 
 	InitialLocation = GetActorLocation();
 		
-	//printTransform();
-	//printStringTypes();
-	//printTypes();
+	//PrintTransform();
+	//PrintStringTypes();
+	//PrintTypes();
 
 }
 
@@ -37,18 +37,33 @@ void ABaseGeometryActor::BeginPlay()
 void ABaseGeometryActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	
+	HandleMovement();	
+}
 
-	// z = z0 + amplitude * sin(freq * t);
-	FVector CurrentLocation = GetActorLocation();
-	float time = GetWorld()->GetTimeSeconds();
-	CurrentLocation.Z = InitialLocation.Z + Amplitude * FMath::Sin(Frequency * time);
+// Lesson 5 (USTRUCT, UENUM)
+void ABaseGeometryActor::HandleMovement()
+{
+	switch (GeometryData.MoveType)
+	{
+	case EMovementType::Sin:
+	{
+		// z = z0 + amplitude * sin(freq * t);
+		FVector CurrentLocation = GetActorLocation();
+		float Time = GetWorld()->GetTimeSeconds();
+		CurrentLocation.Z = InitialLocation.Z + GeometryData.Amplitude * FMath::Sin(GeometryData.Frequency * Time);
 
-	SetActorLocation(CurrentLocation);
+		SetActorLocation(CurrentLocation);
+	}
+	break;
 
+	case EMovementType::Static: break;
+	default: break;
+	}
 }
 
 // Lesson 1 (UE_LOG)
-void ABaseGeometryActor::printTypes() const
+void ABaseGeometryActor::PrintTypes() const
 {
 //	UE_LOG(LogTemp, Display, TEXT("Hello UE!"));
 //	UE_LOG(LogTemp, Warning, TEXT("Hello UE!"));
@@ -64,7 +79,7 @@ void ABaseGeometryActor::printTypes() const
 }
 
 // Lesson 2 ((FString)
-void ABaseGeometryActor::printStringTypes() const
+void ABaseGeometryActor::PrintStringTypes() const
 {
 
 	FString Name = "John Connor";
@@ -81,8 +96,8 @@ void ABaseGeometryActor::printStringTypes() const
 	GEngine->AddOnScreenDebugMessage(-1, 7.0f, FColor::Emerald, Stat, true, FVector2D(1.5f, 1.5f));
 }
 
-// Lesson 3 (Компоненты. Тип FTransform)
-void ABaseGeometryActor::printTransform() const
+// Lesson 3 (Components, FTransform type)
+void ABaseGeometryActor::PrintTransform() const
 {
 	FTransform Transform = GetActorTransform();
 	FVector Location = Transform.GetLocation();

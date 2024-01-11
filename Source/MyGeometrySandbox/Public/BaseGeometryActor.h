@@ -7,6 +7,30 @@
 #include "Components/StaticMeshComponent.h"
 #include "BaseGeometryActor.generated.h"
 
+// Lesson 5 (USTRUCT, UENUM)
+UENUM(BlueprintType)
+enum class EMovementType : uint8
+{
+	Sin,
+	Static
+};
+
+USTRUCT(BlueprintType)
+struct FGeometryData
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float Amplitude = 50.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float Frequency = 2.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	EMovementType MoveType = EMovementType::Static;
+};
+			
+
 UCLASS()
 class MYGEOMETRYSANDBOX_API ABaseGeometryActor : public AActor
 {
@@ -23,16 +47,10 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	// Lesson 4
+	UPROPERTY(EditAnywhere, Category = "Geometry Data")
+	FGeometryData GeometryData;
 
-	UPROPERTY(EditAnywhere, Category = "Movement")
-	float Amplitude = 50.0f;
-
-	UPROPERTY(EditAnywhere, Category = "Movement")
-	float Frequency = 2.0f;
-
-
-	// Lesson 3 (UPROPERTY - свойство)
+	// Lesson 3 (UPROPERTY)
 
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	int32 WeaponsNum = 5;
@@ -56,8 +74,9 @@ public:
 private:
 	FVector InitialLocation;
 
-	void printTypes() const;
-	void printStringTypes() const;
-	void printTransform() const;
+	void PrintTypes() const;
+	void PrintStringTypes() const;
+	void PrintTransform() const;
+	void HandleMovement();
 
 };
